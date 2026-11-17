@@ -1,0 +1,151 @@
+{
+  "info": {
+    "name": "Gestion pédagogique V1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Créer étudiant",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Sara\", \"email\": \"sara@example.com\", \"program\": \"GI\"}"
+        }
+      }
+    },
+    {
+      "name": "Lister étudiants",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students"
+      }
+    },
+    {
+      "name": "Créer module",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"code\": \"GI101\", \"title\": \"Architecture logicielle\", \"capacity\": 30}"
+        }
+      }
+    },
+    {
+      "name": "Lister modules",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/courses"
+      }
+    },
+    {
+      "name": "Inscrire étudiant",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/registrations",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"studentId\": 1, \"courseId\": 1}"
+        }
+      }
+    },
+    {
+      "name": "Inscriptions étudiant",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/students/1/registrations"
+      }
+    },
+    {
+      "name": "Créer examen",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/exams",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": 1, \"date\": \"2026-12-15T09:00:00\"}"
+        }
+      }
+    },
+    {
+      "name": "Saisir note",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/grades",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"examId\": 1, \"studentId\": 1, \"value\": 16.5}"
+        }
+      }
+    },
+    {
+      "name": "Consulter notes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/grades/students/1"
+      }
+    }
+  ]
+}
