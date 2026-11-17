@@ -1,0 +1,168 @@
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/controller/PrerequisiteController.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/dto/EquivalenceRequest.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/dto/PrerequisiteRequest.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/entity/CourseEquivalence.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/entity/CoursePrerequisite.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/repository/CoursePrerequisiteRepository.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/service/CourseService.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/service/PrerequisiteService.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/ma/ensa/gestionpedagogique/service/RegistrationService.java', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/controller/PrerequisiteController.java b/src/main/java/ma/ensa/gestionpedagogique/controller/PrerequisiteController.java[m
+[1mindex f2ce360..8a40ee4 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/controller/PrerequisiteController.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/controller/PrerequisiteController.java[m
+[36m@@ -1,11 +1,17 @@[m
+ package ma.ensa.gestionpedagogique.controller;[m
+[31m-import ma.ensa.gestionpedagogique.dto.*;[m
+[31m-import ma.ensa.gestionpedagogique.entity.*;[m
+[31m-import ma.ensa.gestionpedagogique.service.PrerequisiteService;[m
+[32m+[m
+ import jakarta.validation.Valid;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.dto.EquivalenceRequest;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.dto.PrerequisiteRequest;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.entity.CourseEquivalence;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.entity.CoursePrerequisite;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.service.PrerequisiteService;[m
+[32m+[m[32mimport org.springframework.http.HttpStatus;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+ import org.springframework.web.bind.annotation.*;[m
+[31m-import org.springframework.http.*;[m
+[32m+[m
+ import java.util.List;[m
+[32m+[m
+ @RestController public class PrerequisiteController {[m
+ private final PrerequisiteService service;public PrerequisiteController(PrerequisiteService s){service=s;}[m
+ @GetMapping("/api/courses/{courseId}/prerequisites") public List<CoursePrerequisite> list(@PathVariable Long courseId){return service.forCourse(courseId);}[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/dto/EquivalenceRequest.java b/src/main/java/ma/ensa/gestionpedagogique/dto/EquivalenceRequest.java[m
+[1mindex c66b63e..f500107 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/dto/EquivalenceRequest.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/dto/EquivalenceRequest.java[m
+[36m@@ -1,3 +1,4 @@[m
+ package ma.ensa.gestionpedagogique.dto;[m
+ import jakarta.validation.constraints.NotNull;[m
+[31m-public record EquivalenceRequest(@NotNull Long studentId,@NotNull Long prerequisiteCourseId){}[m
+[32m+[m
+[32m+[m[32mpublic record EquivalenceRequest(@NotNull Long studentId, @NotNull Long prerequisiteCourseId){}[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/dto/PrerequisiteRequest.java b/src/main/java/ma/ensa/gestionpedagogique/dto/PrerequisiteRequest.java[m
+[1mindex b9918d6..b2d7b15 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/dto/PrerequisiteRequest.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/dto/PrerequisiteRequest.java[m
+[36m@@ -1,3 +1,4 @@[m
+ package ma.ensa.gestionpedagogique.dto;[m
+ import jakarta.validation.constraints.NotNull;[m
+[32m+[m
+ public record PrerequisiteRequest(@NotNull Long prerequisiteCourseId){}[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/entity/CourseEquivalence.java b/src/main/java/ma/ensa/gestionpedagogique/entity/CourseEquivalence.java[m
+[1mindex 950f91c..12c4f16 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/entity/CourseEquivalence.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/entity/CourseEquivalence.java[m
+[36m@@ -1,5 +1,6 @@[m
+ package ma.ensa.gestionpedagogique.entity;[m
+ import jakarta.persistence.*;[m
+[32m+[m
+ @Entity @Table(name="course_equivalences",uniqueConstraints=@UniqueConstraint(columnNames={"student_id","prerequisite_course_id"}))[m
+ public class CourseEquivalence {[m
+ @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/entity/CoursePrerequisite.java b/src/main/java/ma/ensa/gestionpedagogique/entity/CoursePrerequisite.java[m
+[1mindex 6c45ce7..632a6cb 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/entity/CoursePrerequisite.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/entity/CoursePrerequisite.java[m
+[36m@@ -1,5 +1,6 @@[m
+ package ma.ensa.gestionpedagogique.entity;[m
+ import jakarta.persistence.*;[m
+[32m+[m
+ @Entity @Table(name="course_prerequisites",uniqueConstraints=@UniqueConstraint(columnNames={"course_id","prerequisite_course_id"}))[m
+ public class CoursePrerequisite {[m
+ @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/repository/CoursePrerequisiteRepository.java b/src/main/java/ma/ensa/gestionpedagogique/repository/CoursePrerequisiteRepository.java[m
+[1mindex 1c0ca10..28fe064 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/repository/CoursePrerequisiteRepository.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/repository/CoursePrerequisiteRepository.java[m
+[36m@@ -1,7 +1,10 @@[m
+ package ma.ensa.gestionpedagogique.repository;[m
+[32m+[m
+ import ma.ensa.gestionpedagogique.entity.CoursePrerequisite;[m
+ import org.springframework.data.jpa.repository.JpaRepository;[m
+[32m+[m
+ import java.util.List;[m
+[32m+[m
+ public interface CoursePrerequisiteRepository extends JpaRepository<CoursePrerequisite,Long>{[m
+ List<CoursePrerequisite> findByCourseId(Long courseId);[m
+ boolean existsByCourseIdAndPrerequisiteCourseId(Long courseId,Long prerequisiteCourseId);[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/service/CourseService.java b/src/main/java/ma/ensa/gestionpedagogique/service/CourseService.java[m
+[1mindex 599ffaa..13a4962 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/service/CourseService.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/service/CourseService.java[m
+[36m@@ -7,11 +7,11 @@[m [mimport org.springframework.stereotype.Service;[m
+ import org.springframework.transaction.annotation.Transactional;[m
+ import java.util.*;[m
+ @Service public class CourseService {[m
+[31m-private final CourseRepository repo;private final RegistrationRepository registrations;private final ExamRepository exams;[m
+[31m-public CourseService(CourseRepository r,RegistrationRepository reg,ExamRepository e){repo=r;registrations=reg;exams=e;}[m
+[31m-public List<Course> all(){return repo.findAll();}[m
+[31m-public Course get(Long id){return repo.findById(id).orElseThrow(()->new ApiException(HttpStatus.NOT_FOUND,"Module introuvable"));}[m
+[31m-@Transactional public Course create(Course c){if(repo.existsByCodeIgnoreCase(c.getCode()))throw new ApiException(HttpStatus.CONFLICT,"Code de module déjà utilisé");c.setId(null);return repo.save(c);}[m
+[31m-@Transactional public Course update(Long id,Course input){Course c=get(id);if(repo.existsByCodeIgnoreCaseAndIdNot(input.getCode(),id))throw new ApiException(HttpStatus.CONFLICT,"Code déjà utilisé");long enrolled=registrations.countByCourseIdAndStatus(id,"ACTIVE");if(input.getCapacity()<enrolled)throw new ApiException(HttpStatus.CONFLICT,"Capacité inférieure au nombre d'inscrits");c.setCode(input.getCode());c.setTitle(input.getTitle());c.setCapacity(input.getCapacity());return repo.save(c);}[m
+[31m-@Transactional public void delete(Long id){get(id);if(registrations.existsByCourseId(id)||exams.existsByCourseId(id))throw new ApiException(HttpStatus.CONFLICT,"Module lié à des inscriptions ou examens");repo.deleteById(id);}[m
+[32m+[m[32m    private final CourseRepository repo;private final RegistrationRepository registrations;private final ExamRepository exams;private final CoursePrerequisiteRepository prerequisites;[m
+[32m+[m[32m    public CourseService(CourseRepository r,RegistrationRepository reg,ExamRepository e,CoursePrerequisiteRepository p){repo=r;registrations=reg;exams=e;prerequisites=p;}[m
+[32m+[m[32m    public List<Course> all(){return repo.findAll();}[m
+[32m+[m[32m    public Course get(Long id){return repo.findById(id).orElseThrow(()->new ApiException(HttpStatus.NOT_FOUND,"Module introuvable"));}[m
+[32m+[m[32m    @Transactional public Course create(Course c){if(repo.existsByCodeIgnoreCase(c.getCode()))throw new ApiException(HttpStatus.CONFLICT,"Code de module déjà utilisé");c.setId(null);return repo.save(c);}[m
+[32m+[m[32m    @Transactional public Course update(Long id,Course input){Course c=get(id);if(repo.existsByCodeIgnoreCaseAndIdNot(input.getCode(),id))throw new ApiException(HttpStatus.CONFLICT,"Code déjà utilisé");long enrolled=registrations.countByCourseIdAndStatus(id,"ACTIVE");if(input.getCapacity()<enrolled)throw new ApiException(HttpStatus.CONFLICT,"Capacité inférieure au nombre d'inscrits");c.setCode(input.getCode());c.setTitle(input.getTitle());c.setCapacity(input.getCapacity());return repo.save(c);}[m
+[32m+[m[32m    @Transactional public void delete(Long id){get(id);if(registrations.existsByCourseId(id)||exams.existsByCourseId(id)||prerequisites.existsByCourseIdOrPrerequisiteCourseId(id,id))throw new ApiException(HttpStatus.CONFLICT,"Module lié à des inscriptions ou examens");repo.deleteById(id);}[m
+ }[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/service/PrerequisiteService.java b/src/main/java/ma/ensa/gestionpedagogique/service/PrerequisiteService.java[m
+[1mindex c81d381..1bb5843 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/service/PrerequisiteService.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/service/PrerequisiteService.java[m
+[36m@@ -1,16 +1,26 @@[m
+ package ma.ensa.gestionpedagogique.service;[m
+[31m-import ma.ensa.gestionpedagogique.entity.*;[m
+[31m-import ma.ensa.gestionpedagogique.repository.*;[m
+[32m+[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.entity.CourseEquivalence;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.entity.CoursePrerequisite;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.entity.Exam;[m
+ import ma.ensa.gestionpedagogique.exception.ApiException;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.repository.CourseEquivalenceRepository;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.repository.CoursePrerequisiteRepository;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.repository.ExamRepository;[m
+[32m+[m[32mimport ma.ensa.gestionpedagogique.repository.GradeRepository;[m
+ import org.springframework.http.HttpStatus;[m
+ import org.springframework.stereotype.Service;[m
+ import org.springframework.transaction.annotation.Transactional;[m
+[32m+[m
+ import java.math.BigDecimal;[m
+[31m-import java.util.*;[m
+[32m+[m[32mimport java.util.HashSet;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m[32mimport java.util.Set;[m
+[32m+[m
+ @Service public class PrerequisiteService {[m
+ private final CoursePrerequisiteRepository prerequisites;private final CourseEquivalenceRepository equivalences;[m
+ private final GradeRepository grades;private final ExamRepository exams;private final CourseService courses;private final StudentService students;[m
+[31m-public PrerequisiteService(CoursePrerequisiteRepository p,CourseEquivalenceRepository eq,GradeRepository g,ExamRepository ex,CourseService c,StudentService s){prerequisites=p;equivalences=eq;grades=g;exams=ex;courses=c;students=s;}[m
+[32m+[m[32mpublic PrerequisiteService(CoursePrerequisiteRepository p, CourseEquivalenceRepository eq, GradeRepository g, ExamRepository ex, CourseService c, StudentService s){prerequisites=p;equivalences=eq;grades=g;exams=ex;courses=c;students=s;}[m
+ public List<CoursePrerequisite> forCourse(Long courseId){courses.get(courseId);return prerequisites.findByCourseId(courseId);}[m
+ @Transactional public CoursePrerequisite add(Long courseId,Long requiredId){courses.get(courseId);courses.get(requiredId);[m
+ if(courseId.equals(requiredId))throw new ApiException(HttpStatus.BAD_REQUEST,"Un module ne peut pas être son propre prérequis");[m
+[1mdiff --git a/src/main/java/ma/ensa/gestionpedagogique/service/RegistrationService.java b/src/main/java/ma/ensa/gestionpedagogique/service/RegistrationService.java[m
+[1mindex e6c9f5d..1e3d33e 100644[m
+[1m--- a/src/main/java/ma/ensa/gestionpedagogique/service/RegistrationService.java[m
+[1m+++ b/src/main/java/ma/ensa/gestionpedagogique/service/RegistrationService.java[m
+[36m@@ -10,9 +10,9 @@[m [mimport jakarta.persistence.EntityManager;[m
+ import jakarta.persistence.LockModeType;[m
+ import java.util.*;[m
+ @Service public class RegistrationService {[m
+[31m-private final RegistrationRepository repo;private final StudentService students;private final CourseService courses;private final EntityManager em;[m
+[31m-public RegistrationService(RegistrationRepository r,StudentService s,CourseService c,EntityManager em){repo=r;students=s;courses=c;this.em=em;}[m
+[31m-public List<Registration> all(){return repo.findAll();}[m
+[31m-public List<Registration> byStudent(Long id){students.get(id);return repo.findByStudentId(id);}[m
+[31m-@Transactional public Registration create(RegistrationRequest request){students.get(request.studentId());Course course=em.find(Course.class,request.courseId(),LockModeType.PESSIMISTIC_WRITE);if(course==null)throw new ApiException(HttpStatus.NOT_FOUND,"Module introuvable");if(repo.existsByStudentIdAndCourseIdAndStatus(request.studentId(),request.courseId(),"ACTIVE"))throw new ApiException(HttpStatus.CONFLICT,"Déjà inscrit à ce module");if(repo.countByCourseIdAndStatus(course.getId(),"ACTIVE")>=course.getCapacity())throw new ApiException(HttpStatus.CONFLICT,"Module complet");Registration r=new Registration();r.setStudentId(request.studentId());r.setCourseId(request.courseId());r.setStatus("ACTIVE");return repo.save(r);}[m
+[32m+[m[32m    private final RegistrationRepository repo;private final StudentService students;private final CourseService courses;private final EntityManager em;private final PrerequisiteService prerequisites;[m
+[32m+[m[32m    public RegistrationService(RegistrationRepository r,StudentService s,CourseService c,EntityManager em,PrerequisiteService prerequisites){repo=r;students=s;courses=c;this.em=em;this.prerequisites=prerequisites;}[m
+[32m+[m[32m    public List<Registration> all(){return repo.findAll();}[m
+[32m+[m[32m    public List<Registration> byStudent(Long id){students.get(id);return repo.findByStudentId(id);}[m
+[32m+[m[32m    @Transactional public Registration create(RegistrationRequest request){students.get(request.studentId());Course course=em.find(Course.class,request.courseId(),LockModeType.PESSIMISTIC_WRITE);if(course==null)throw new ApiException(HttpStatus.NOT_FOUND,"Module introuvable");if(repo.existsByStudentIdAndCourseIdAndStatus(request.studentId(),request.courseId(),"ACTIVE"))throw new ApiException(HttpStatus.CONFLICT,"Déjà inscrit à ce module");if(repo.countByCourseIdAndStatus(course.getId(),"ACTIVE")>=course.getCapacity())throw new ApiException(HttpStatus.CONFLICT,"Module complet");prerequisites.validate(request.studentId(),request.courseId());Registration r=new Registration();r.setStudentId(request.studentId());r.setCourseId(request.courseId());r.setStatus("ACTIVE");return repo.save(r);}[m
+ }[m

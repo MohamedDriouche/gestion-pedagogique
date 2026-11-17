@@ -10,9 +10,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import java.util.*;
 @Service public class RegistrationService {
-private final RegistrationRepository repo;private final StudentService students;private final CourseService courses;private final EntityManager em;
-public RegistrationService(RegistrationRepository r,StudentService s,CourseService c,EntityManager em){repo=r;students=s;courses=c;this.em=em;}
-public List<Registration> all(){return repo.findAll();}
-public List<Registration> byStudent(Long id){students.get(id);return repo.findByStudentId(id);}
-@Transactional public Registration create(RegistrationRequest request){students.get(request.studentId());Course course=em.find(Course.class,request.courseId(),LockModeType.PESSIMISTIC_WRITE);if(course==null)throw new ApiException(HttpStatus.NOT_FOUND,"Module introuvable");if(repo.existsByStudentIdAndCourseIdAndStatus(request.studentId(),request.courseId(),"ACTIVE"))throw new ApiException(HttpStatus.CONFLICT,"Déjà inscrit à ce module");if(repo.countByCourseIdAndStatus(course.getId(),"ACTIVE")>=course.getCapacity())throw new ApiException(HttpStatus.CONFLICT,"Module complet");Registration r=new Registration();r.setStudentId(request.studentId());r.setCourseId(request.courseId());r.setStatus("ACTIVE");return repo.save(r);}
+    private final RegistrationRepository repo;private final StudentService students;private final CourseService courses;private final EntityManager em;private final PrerequisiteService prerequisites;
+    public RegistrationService(RegistrationRepository r,StudentService s,CourseService c,EntityManager em,PrerequisiteService prerequisites){repo=r;students=s;courses=c;this.em=em;this.prerequisites=prerequisites;}
+    public List<Registration> all(){return repo.findAll();}
+    public List<Registration> byStudent(Long id){students.get(id);return repo.findByStudentId(id);}
+    @Transactional public Registration create(RegistrationRequest request){students.get(request.studentId());Course course=em.find(Course.class,request.courseId(),LockModeType.PESSIMISTIC_WRITE);if(course==null)throw new ApiException(HttpStatus.NOT_FOUND,"Module introuvable");if(repo.existsByStudentIdAndCourseIdAndStatus(request.studentId(),request.courseId(),"ACTIVE"))throw new ApiException(HttpStatus.CONFLICT,"Déjà inscrit à ce module");if(repo.countByCourseIdAndStatus(course.getId(),"ACTIVE")>=course.getCapacity())throw new ApiException(HttpStatus.CONFLICT,"Module complet");prerequisites.validate(request.studentId(),request.courseId());Registration r=new Registration();r.setStudentId(request.studentId());r.setCourseId(request.courseId());r.setStatus("ACTIVE");return repo.save(r);}
 }

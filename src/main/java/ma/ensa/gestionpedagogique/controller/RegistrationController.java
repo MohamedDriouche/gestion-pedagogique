@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import jakarta.validation.Valid;
 import java.util.*;
-@RestController @RequestMapping("/api/registrations") public class RegistrationController {
+@RestController @RequestMapping("/api/registrations") public class
+
+RegistrationController {
 private final RegistrationService service;
 public RegistrationController(RegistrationService service){this.service=service;}
 @GetMapping public List<Registration> all(){return service.all();}
